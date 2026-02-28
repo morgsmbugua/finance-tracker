@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Finance Tracker:&copy;morgsmbugua</title>
+  <title>Household Finance Tracker:&copy;morgsmbugua</title>
   <style>
     :root { 
       --primary-blue: #0056b3; 
@@ -11,15 +11,14 @@
       --pure-white: #ffffff;
       --income-green: #2ecc71; 
       --expense-red: #e74c3c; 
-      --soft-gray: #f8f9fa;
     }
     * {
+        scroll-behavior: smooth;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
-    
     body { 
-      font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
-      background-color: var(--deep-black); 
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+      background-color: #151515; 
       color: var(--pure-white); 
       margin: 0; 
       padding: 10px; 
@@ -28,24 +27,22 @@
     }
 
     .container { 
-      width: 100%; 
-      max-width: 460px; 
-      background: #1e1e1e; 
+      width: 100%;
+      background: #15151524; 
       padding: 25px; 
       border-radius: 5px; 
-      box-shadow: 1px 1px 20px rgba(255, 255, 255, 0.5);
+      box-shadow: 0.1px 0.1px 4px rgb(255, 255, 255);
       border: 1px solid #333;
     }
 
     h2 { 
         text-align: center; 
-        color: var(--pure-white); 
-        letter-spacing: 1px; 
+        color: azure; 
+        letter-spacing: 5px; 
         margin-top: 0; 
         font-weight: 300; 
     }
     
-    /* Progress Bar */
     .hp-container { 
         margin-bottom: 25px; 
     }
@@ -54,35 +51,34 @@
         justify-content: space-between; 
         margin-bottom: 8px; 
         font-size: 12px; 
-        font-weight: bold; 
+        font-weight: 500; 
         color: #aaa; 
     }
     .hp-bar-bg { 
         width: 100%; 
-        height: 7px; 
-        background: #333; 
+        height: 5px; 
+        background: #575757bb; 
         border-radius: 2px; 
         overflow: hidden; 
     }
     .hp-fill { 
         height: 100%; 
         width: 100%; 
-        transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        transition: width 0.6s ease; 
         background: var(--primary-blue); 
     }
 
-    /* Totals Dashboard */
     .balance-section { 
         text-align: center; 
         margin-bottom: 25px; 
-        background: rgba(255, 255, 255, 0.03); 
+        background-color: #222; 
         padding: 15px; 
         border-radius: 5px; 
     }
     .balance-section small { 
-        color: #888; 
+        color: #ffffffb7; 
         text-transform: uppercase; 
-        font-size: 15px; 
+        font-size: 13px; 
         letter-spacing: 5px; 
     }
     .balance-section h1 { 
@@ -109,21 +105,20 @@
         font-size: 10px; 
         margin-bottom: 4px; 
         opacity: 0.7; 
-        font-weight: bold; 
+        font-weight: 750; 
     }
     .stat-card span { 
         font-size: 16px; 
-        font-weight: 900; 
+        font-weight: 800; 
     }
 
-    /* Inputs */
     .section-title { 
-        font-size: 18px; 
-        font-weight: bold; 
+        font-size: 13px; 
+        font-weight: 650; 
         text-align: center;
         text-transform: uppercase; 
         margin: 25px 0 12px; 
-        color:#005effb9; 
+        color: var(--primary-blue);
         padding-left: 10px; 
     }
     .input-row { 
@@ -131,121 +126,125 @@
         justify-content: space-between; 
         align-items: center; 
         margin-bottom: 10px; 
-        background: rgba(255,255,255,0.05); 
+        background: #3232327c; 
         padding: 10px 15px; 
         border-radius: 5px; 
-        transition: 0.3s; 
-    }
-    .input-row:hover { 
-        background: rgba(255,255,255,0.08); 
-    }
-    .input-row span { 
-        font-size: 14px; 
-        color: #ffffff; 
     }
     .input-row input { 
-        width: 110px; 
+        width: 120px; 
         padding: 8px; 
-        border-radius: 6px; 
-        border: 1px solid #ffffff; 
+        border-radius: 3px; 
+        border: 1px solid #444; 
         background: var(--pure-white); 
-        color:#121212; 
+        color: var(--deep-black); 
         text-align: right; 
-        font-weight: bold; 
-    }
-    .input-row input:focus { 
-        border-color: var(--primary-blue); 
+        font-weight: 650; 
         outline: none; 
     }
 
-    /* History Table */
+    /* HISTORY STYLES */
     .history-header { 
         display: grid; 
-        grid-template-columns: 1.5fr 1fr 1fr 1fr 0.5fr; 
+        grid-template-columns: 1.2fr 1fr 1fr 1fr 0.4fr; 
         font-size: 10px; 
-        color: #b2b2b2; 
-        font-weight: bold; 
+        color: #b5b5b5; 
+        font-weight: 500; 
         padding: 0 10px 5px; 
         text-transform: uppercase; 
     }
     .history-list { 
-        max-height: 250px; 
+        max-height: 400px; 
         overflow-y: auto; 
-        background: rgba(0,0,0,0.3); 
+        background: rgba(0, 0, 0, 0.652); 
         border-radius: 5px; 
         padding: 5px; 
+        font-weight: 500;
     }
-    .history-item { 
+    
+    .day-group { 
+        border-bottom: 1px solid #3c3c3c; 
+    }
+    .history-summary-row { 
         display: grid; 
-        grid-template-columns: 1.5fr 1fr 1fr 1fr 0.5fr; 
+        grid-template-columns: 1.2fr 1fr 1fr 1fr 0.4fr; 
         align-items: center; 
         font-size: 11px; 
+        font-weight: 500;
         padding: 12px 5px; 
+        cursor: pointer; 
+    }
+    
+    .day-details { 
+        background: #151515; 
+        padding: 0 10px; 
+        display: none; 
+        overflow: hidden; 
+        border-radius: 8px; 
+        margin: 0 5px 10px; 
+    }
+    .detail-item { 
+        display: flex; 
+        justify-content: space-between; 
+        padding: 6px 0; 
+        font-size: 10px; 
         border-bottom: 1px solid #222; 
     }
-    .history-item span { 
-        overflow: hidden; 
-        text-overflow: ellipsis; 
-        white-space: nowrap; 
+    .detail-item:last-child { 
+        border-bottom: none; 
+    }
+    .detail-label { 
+        color: #aaa; 
+    }
+    .detail-amt { 
+        font-weight: 500; 
     }
 
-    /* Buttons */
     .full-btn { 
         width: 100%; 
         margin: 20px 0; 
         padding: 15px; 
-        border-radius: 12px; 
+        border-radius: 5px; 
         border: none; 
-        font-weight: bold; 
+        font-weight: 500; 
         cursor: pointer; 
         background: var(--primary-blue); 
         color: var(--pure-white); 
-        transition: 0.3s; text-transform: uppercase; 
+        text-transform: uppercase; 
     }
-    .full-btn:hover { 
-        background: #1984ff; 
-        transform: translateY(-2px); 
-    }
-    
     .footer-btns { 
         display: grid; 
         grid-template-columns: 1fr 1fr; 
         gap: 10px; 
     }
-    button { 
-        padding: 12px; 
-        border-radius: 5px; 
-        border: none; 
-        font-weight: bold; 
-        cursor: pointer; 
-        font-size: 11px; 
-        text-transform: uppercase; 
-    }
     .reset-btn { 
         background: transparent; 
         color: #ffffff; 
-        border: 1px solid #ffffff; 
+        border: 0.1px  solid #ffffff; 
+        padding: 12px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-size: 11px; 
+        font-weight: 500; 
+        text-transform: uppercase; 
     }
-    .csv-btn { 
+    .xls-btn { 
         background: var(--pure-white); 
         color: var(--deep-black); 
+        padding: 12px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-size: 11px; 
+        font-weight: 500; 
+        text-transform: uppercase; 
+        border: none; 
     }
     
     .action-btn { 
         background: none; 
-        border: none; 
-        color: #555; 
+        border: none; color: #ffffff; 
         cursor: pointer; 
-        font-size: 14px; 
-        padding: 0 5px; 
+        font-size: 15px; 
     }
-    .edit-btn:hover { 
-        color: var(--primary-blue); 
-    }
-    .del-btn:hover { 
-        color: var(--expense-red); 
-    }
-
     .editing-mode { 
         background: var(--primary-blue); 
         color: white; 
@@ -254,27 +253,21 @@
         text-align: center; 
         margin-bottom: 20px; 
         font-size: 12px; 
-        font-weight: bold; 
-        animation: pulse 2s infinite; 
-    }
-    @keyframes pulse { 
-        0% { opacity: 1; } 
-        50% { opacity: 0.7; } 
-        100% { opacity: 1; } 
+        font-weight: 500; 
     }
   </style>
-  <link rel="icon" href="/images/bob.png">
+  <link rel="icon" href="images/bob.png">
 </head>
 <body>
 
 <div class="container">
-  <h2>FINANCE LOG</h2>
+  <h2>HOUSEHOLD TRACKER</h2>
   
   <div id="edit-indicator" style="display:none;" class="editing-mode">✏️ UPDATING RECORD FOR: <span id="edit-date-label"></span></div>
 
   <div class="hp-container">
     <div class="hp-label">
-        <span>CASH FLOW HEALTH</span>
+        <span>BUDGET HEALTH</span>
         <span id="hp-percent">100%</span>
     </div>
     <div class="hp-bar-bg">
@@ -300,42 +293,49 @@
 
   <div class="section-title">Income Sources</div>
   <div class="input-row">
-    <span>Income</span>
-    <input type="number" class="inc-input" id="f-income" placeholder="0"></div>
-  <div class="input-row"><span>Debt Received</span> <input type="number" class="inc-input" id="f-inc-debt" placeholder="0"></div>
-  <div class="input-row"><span>Other</span> <input type="number" class="inc-input" id="f-inc-other" placeholder="0"></div>
+    <span>Income</span> 
+    <input type="number" class="inc-input" data-label="Monthly Income" id="f-income" placeholder="0">
+</div>
+  <div class="input-row">
+    <span>Debt (Received)</span> 
+    <input type="number" class="inc-input" data-label="Debt Received" id="f-inc-debt" placeholder="0">
+</div>
+  <div class="input-row"
+  <span>Other</span> 
+  <input type="number" class="inc-input" data-label="Other Income" id="f-inc-other" placeholder="0">
+</div>
 
-  <div class="section-title">Household Expenses</div>
-  <div class="input-row"><span>Rent</span> <input type="number" class="exp-input" id="f-rent" placeholder="0"></div>
-  <div class="input-row"><span>Food</span> <input type="number" class="exp-input" id="f-food" placeholder="0"></div>
-  <div class="input-row"><span>Transport</span> <input type="number" class="exp-input" id="f-trans" placeholder="0"></div>
-  <div class="input-row"><span>School Fees</span> <input type="number" class="exp-input" id="f-fees" placeholder="0"></div>
-  <div class="input-row"><span>Debt Repayment</span> <input type="number" class="exp-input" id="f-exp-debt" placeholder="0"></div>
-  <div class="input-row"><span>Electricity</span> <input type="number" class="exp-input" id="f-elec" placeholder="0"></div>
-  <div class="input-row"><span>Gas</span> <input type="number" class="exp-input" id="f-gas" placeholder="0"></div>
-  <div class="input-row"><span>Wifi</span> <input type="number" class="exp-input" id="f-wifi" placeholder="0"></div>
-  <div class="input-row"><span>Extra Bills</span> <input type="number" class="exp-input" id="f-extra" placeholder="0"></div>
+  <div class="section-title">Monthly Expenses</div>
+  <div class="input-row"><span>Rent</span> <input type="number" class="exp-input" data-label="Rent" id="f-rent" placeholder="0"></div>
+  <div class="input-row"><span>Food</span> <input type="number" class="exp-input" data-label="Food" id="f-food" placeholder="0"></div>
+  <div class="input-row"><span>Transport</span> <input type="number" class="exp-input" data-label="Transport" id="f-trans" placeholder="0"></div>
+  <div class="input-row"><span>School Fees</span> <input type="number" class="exp-input" data-label="School Fees" id="f-fees" placeholder="0"></div>
+  <div class="input-row"><span>Debt (Repay)</span> <input type="number" class="exp-input" data-label="Debt Repayment" id="f-exp-debt" placeholder="0"></div>
+  <div class="input-row"><span>Electricity</span> <input type="number" class="exp-input" data-label="Electricity" id="f-elec" placeholder="0"></div>
+  <div class="input-row"><span>Gas</span> <input type="number" class="exp-input" data-label="Gas" id="f-gas" placeholder="0"></div>
+  <div class="input-row"><span>Wifi</span> <input type="number" class="exp-input" data-label="Wifi" id="f-wifi" placeholder="0"></div>
+  <div class="input-row"><span>Extra Bills</span> <input type="number" class="exp-input" data-label="Extra Bills" id="f-extra" placeholder="0"></div>
 
   <button class="full-btn" id="save-btn" onclick="saveToHistory()">SAVE</button>
 
-  <div class="section-title" style="border-color: #555;">History Log</div>
+  <div class="section-title">History Ramp</div>
   <div class="history-header">
     <span>Date</span>
     <span>In</span>
     <span>Out</span>
     <span>Bal</span>
     <span></span>
-  </div>
+</div>
   <div class="history-list" id="history-log"></div>
 
   <div style="margin-top: 30px;" class="footer-btns">
-      <button onclick="shareData()" class="csv-btn">Export & Share</button>
       <button onclick="hardReset()" class="reset-btn">Reset All</button>
+      <button onclick="exportToExcel()" class="xls-btn">Export for Excel</button>
   </div>
 </div>
 
 <script>
-  let history = JSON.parse(localStorage.getItem('hh_fin_v2')) || [];
+  let txLogs = JSON.parse(localStorage.getItem('hh_final_data_v5')) || [];
   let currentlyEditingDate = null;
 
   function init() {
@@ -349,106 +349,108 @@
     document.querySelectorAll('.inc-input').forEach(i => inc += parseFloat(i.value)||0);
     document.querySelectorAll('.exp-input').forEach(i => exp += parseFloat(i.value)||0);
     const bal = inc - exp;
-
     document.getElementById('inc-total').innerText = inc.toLocaleString();
     document.getElementById('exp-total').innerText = exp.toLocaleString();
     document.getElementById('balance').innerText = `Ksh ${bal.toLocaleString()}`;
-    
     let hp = inc > 0 ? (bal / inc) * 100 : (exp > 0 ? 0 : 100);
-    hp = Math.max(0, Math.min(100, hp));
     const fill = document.getElementById('hp-fill');
-    fill.style.width = hp + "%";
+    fill.style.width = Math.max(0, Math.min(100, hp)) + "%";
     fill.style.background = hp > 50 ? "var(--income-green)" : (hp > 20 ? "#f1c40f" : "var(--expense-red)");
     document.getElementById('hp-percent').innerText = Math.round(hp) + "%";
   }
 
   function saveToHistory() {
     const date = currentlyEditingDate || new Date().toLocaleDateString('en-GB');
-    let dataMap = {};
-    document.querySelectorAll('input').forEach(i => dataMap[i.id] = i.value);
-
-    let inc = 0, exp = 0;
-    document.querySelectorAll('.inc-input').forEach(i => inc += parseFloat(i.value)||0);
-    document.querySelectorAll('.exp-input').forEach(i => exp += parseFloat(i.value)||0);
-
-    history = history.filter(h => h.date !== date);
-    history.push({ date, inc, exp, bal: inc - exp, details: dataMap });
-    localStorage.setItem('hh_fin_v2', JSON.stringify(history));
-    
-    cancelEdit();
+    txLogs = txLogs.filter(log => log.date !== date);
+    document.querySelectorAll('input').forEach(i => {
+      const val = parseFloat(i.value) || 0;
+      if (val !== 0) {
+        txLogs.push({ date, category: i.getAttribute('data-label'), type: i.classList.contains('inc-input') ? 'Income' : 'Expense', amount: val, fieldId: i.id });
+      }
+    });
+    localStorage.setItem('hh_final_data_v5', JSON.stringify(txLogs));
+    currentlyEditingDate = null;
+    document.getElementById('edit-indicator').style.display = 'none';
+    document.getElementById('save-btn').innerText = "Saved to Dashboard";
+    document.querySelectorAll('input').forEach(i => i.value = '');
     renderHist();
     runCalc();
   }
 
-  function cancelEdit() {
-    currentlyEditingDate = null;
-    document.getElementById('edit-indicator').style.display = 'none';
-    document.getElementById('save-btn').innerText = "Save & Clear Dashboard";
-    document.querySelectorAll('input').forEach(i => i.value = '');
+  function toggleDetails(date) {
+    const el = document.getElementById(`details-${date.replace(/\//g, '-')}`);
+    el.style.display = (el.style.display === 'block') ? 'none' : 'block';
   }
 
-  function editDay(date) {
-    const entry = history.find(h => h.date === date);
-    if (!entry) return;
+  function editDay(e, date) {
+    e.stopPropagation(); // Prevents toggleDetails from firing
+    const dailyLogs = txLogs.filter(log => log.date === date);
     currentlyEditingDate = date;
     document.getElementById('edit-date-label').innerText = date;
     document.getElementById('edit-indicator').style.display = 'block';
-    document.getElementById('save-btn').innerText = "Update History Entry";
-
-    for (let id in entry.details) {
-      const el = document.getElementById(id);
-      if (el) el.value = entry.details[id];
-    }
+    document.getElementById('save-btn').innerText = "Update Saved Record";
+    document.querySelectorAll('input').forEach(i => i.value = ''); 
+    dailyLogs.forEach(log => {
+      const el = document.getElementById(log.fieldId);
+      if (el) el.value = log.amount;
+    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
     runCalc();
   }
 
   function renderHist() {
-    const log = document.getElementById('history-log');
-    log.innerHTML = history.length ? '' : '<div style="text-align:center; padding:20px; color:#555; font-size:12px;">No records yet</div>';
+    const logContainer = document.getElementById('history-log');
+    logContainer.innerHTML = txLogs.length ? '' : '<div style="text-align:center; padding:15px; color:#555;">No records</div>';
     
-    history.slice().sort((a,b) => {
-        const d1 = a.date.split('/').reverse().join('');
-        const d2 = b.date.split('/').reverse().join('');
-        return d2.localeCompare(d1);
-    }).forEach((h) => {
-      log.innerHTML += `
-        <div class="history-item">
-          <span style="color:#aaa">${h.date}</span>
-          <span style="color:var(--income-green)">${h.inc.toLocaleString()}</span>
-          <span style="color:var(--expense-red)">${h.exp.toLocaleString()}</span>
-          <span style="font-weight:bold">${h.bal.toLocaleString()}</span>
-          <span style="text-align:right">
-            <button class="action-btn edit-btn" onclick="editDay('${h.date}')">✎</button>
-          </span>
+    const grouped = txLogs.reduce((acc, log) => {
+      if (!acc[log.date]) acc[log.date] = { inc: 0, exp: 0, items: [] };
+      if (log.type === 'Income') acc[log.date].inc += log.amount;
+      else acc[log.date].exp += log.amount;
+      acc[log.date].items.push(log);
+      return acc;
+    }, {});
+
+    Object.keys(grouped).sort((a,b) => b.split('/').reverse().join('').localeCompare(a.split('/').reverse().join(''))).forEach(date => {
+      const h = grouped[date];
+      const dateId = date.replace(/\//g, '-');
+      
+      let detailHtml = h.items.map(item => `
+        <div class="detail-item">
+          <span class="detail-label">${item.category}</span>
+          <span class="detail-amt" style="color:${item.type==='Income'?'var(--income-green)':'var(--expense-red)'}">${item.amount.toLocaleString()}</span>
+        </div>
+      `).join('');
+
+      logContainer.innerHTML += `
+        <div class="day-group">
+          <div class="history-summary-row" onclick="toggleDetails('${date}')">
+            <span style="color:#888">${date}</span>
+            <span style="color:var(--income-green)">${h.inc.toLocaleString()}</span>
+            <span style="color:var(--expense-red)">${h.exp.toLocaleString()}</span>
+            <span style="font-weight:500">${(h.inc - h.exp).toLocaleString()}</span>
+            <button class="action-btn" onclick="editDay(event, '${date}')">✎</button>
+          </div>
+          <div class="day-details" id="details-${dateId}">
+            <div style="font-size:10px; color:#555; margin-bottom:5px; text-transform:uppercase;">Daily Breakdown</div>
+            ${detailHtml}
+          </div>
         </div>`;
     });
   }
 
-  function hardReset() {
-    if(confirm("Permanently erase all history?")) {
-      localStorage.clear();
-      location.reload();
-    }
+  function exportToExcel() {
+    let csvContent = "Date,Item Category,Type,Amount (Ksh)\n";
+    txLogs.forEach(log => { csvContent += `${log.date},"${log.category}",${log.type},${log.amount}\n`; });
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Detailed_Household_Report.csv';
+    link.click();
   }
 
-  async function shareData() {
-    let csv = "Date,Income,Expense,Balance\n";
-    history.forEach(h => csv += `${h.date},${h.inc},${h.exp},${h.bal}\n`);
-    const file = new File([new Blob([csv], { type: 'text/csv' })], 'household_finance.csv', { type: 'text/csv' });
-
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file], title: 'Finance Report' }); } catch (e) {}
-    } else {
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([csv]));
-      a.download = 'household_finance.csv';
-      a.click();
-    }
-  }
-
+  function hardReset() { if(confirm("Permanently Erase All Data?")) { localStorage.clear(); location.reload(); } }
   init();
 </script>
 </body>
 </html>
-
