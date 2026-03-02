@@ -255,6 +255,32 @@
         font-size: 12px; 
         font-weight: 500; 
     }
+    /* Add this at the bottom of your <style> section */
+.custom-adder {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0 20px;
+    padding: 0 5px;
+}
+.custom-adder input {
+    flex: 1;
+    background: #111;
+    border: 1px solid #444;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 11px;
+}
+.add-btn {
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 0 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
   </style>
   <link rel="icon" href="images/bob.png">
 </head>
@@ -304,6 +330,10 @@
   <span>Other</span> 
   <input type="number" class="inc-input" data-label="Other Income" id="f-inc-other" placeholder="0">
 </div>
+<div id="custom-inc-container"></div> <div class="custom-adder">
+    <input type="text" id="new-inc-name" placeholder="Add custom income (e.g. Gifts)">
+    <button class="add-btn" onclick="addNewField('inc')">+</button>
+</div>
 
   <div class="section-title">Household Expenses</div>
   <div class="input-row"><span>Rent</span> <input type="number" class="exp-input" data-label="Rent" id="f-rent" placeholder="0"></div>
@@ -314,7 +344,12 @@
   <div class="input-row"><span>Electricity</span> <input type="number" class="exp-input" data-label="Electricity" id="f-elec" placeholder="0"></div>
   <div class="input-row"><span>Gas</span> <input type="number" class="exp-input" data-label="Gas" id="f-gas" placeholder="0"></div>
   <div class="input-row"><span>Wifi</span> <input type="number" class="exp-input" data-label="Wifi" id="f-wifi" placeholder="0"></div>
-  <div class="input-row"><span>Extra Bills</span> <input type="number" class="exp-input" data-label="Extra Bills" id="f-extra" placeholder="0"></div>
+  <div class="input-row"><span>Extra Bills</span> <input type="number" class="exp-input" data-label="Extra Bills" id="f-extra" placeholder="0">
+  </div>
+  <div id="custom-exp-container"></div> <div class="custom-adder">
+    <input type="text" id="new-exp-name" placeholder="Add custom expense (e.g. Tithe)">
+    <button class="add-btn" onclick="addNewField('exp')">+</button>
+</div>
 
   <button class="full-btn" id="save-btn" onclick="saveToHistory()">SAVE</button>
 
@@ -336,14 +371,19 @@
 </div>
 
 <script>
+  let customFields = JSON.parse(localStorage.getItem('hh_custom_fields_v5')) || { inc: [], exp: [] };
   let txLogs = JSON.parse(localStorage.getItem('hh_final_data_v5')) || [];
   let currentlyEditingDate = null;
 
   function init() {
+    // Load existing custom fields from memory
+    customFields.inc.forEach(name => createInputMarkup('inc', name));
+    customFields.exp.forEach(name => createInputMarkup('exp', name));
+    
     document.querySelectorAll('input').forEach(i => i.addEventListener('input', runCalc));
     renderHist();
     runCalc();
-  }
+}
 
   function runCalc() {
     let inc = 0, exp = 0;
@@ -452,6 +492,35 @@
 
   function hardReset() { if(confirm("Permanently Erase All Data?")) { localStorage.clear(); location.reload(); } }
   init();
+
+  function addNewField(type) {
+    const inputId = type === 'inc' ? 'new-inc-name' : 'new-exp-name';
+    const name = document.getElementById(inputId).value.trim();
+    if (!name) return;
+
+    if (!customFields[type].includes(name)) {
+        customFields[type].push(name);
+        localStorage.setItem('hh_custom_fields_v5', JSON.stringify(customFields));
+        createInputMarkup(type, name);
+        // Attach listener to the new input so the math updates live
+        document.querySelectorAll('input').forEach(i => i.addEventListener('input', runCalc));
+    }
+    document.getElementById(inputId).value = '';
+}
+
+function createInputMarkup(type, name) {
+    const containerId = type === 'inc' ? 'custom-inc-container' : 'custom-exp-container';
+    const container = document.getElementById(containerId);
+    const div = document.createElement('div');
+    div.className = 'input-row';
+    // Create a unique ID so the 'Edit' feature works correctly
+    const safeId = 'f-custom-' + name.replace(/\s+/g, '-').toLowerCase();
+    div.innerHTML = `
+        <span>${name}</span> 
+        <input type="number" class="${type}-input" data-label="${name}" id="${safeId}" placeholder="0">
+    `;
+    container.appendChild(div);
+}
 </script>
 </body>
 </html>
