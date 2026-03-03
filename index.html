@@ -288,9 +288,9 @@
   <span class="library-label" id="lib-exp-label" style="display:none;">Suggestions</span>
   <div class="field-library" id="lib-exp-container"></div>
 
-  <button class="full-btn" id="save-btn" onclick="saveToHistory()">SAVE RECORD</button>
+  <button class="full-btn" id="save-btn" onclick="saveToHistory()">SAVE</button>
 
-  <div class="section-title">History Ramp</div>
+  <div class="section-title" style="font-weight: 400;">History</div>
   <div class="history-header"><span>Date</span><span>In</span><span>Out</span><span>Bal</span><span></span></div>
   <div class="history-list" id="history-log"></div>
 
@@ -418,17 +418,39 @@
 
   function saveToHistory() {
     const date = currentlyEditingDate || new Date().toLocaleDateString('en-GB');
-    txLogs = txLogs.filter(log => log.date !== date);
-    document.querySelectorAll('input').forEach(i => {
+    
+    // 1. Collect all non-zero entries from the current inputs
+    let newEntries = [];
+    document.querySelectorAll('input[type="number"]').forEach(i => {
       const val = parseFloat(i.value) || 0;
-      if (val !== 0 && i.type === "number") {
-        txLogs.push({ date, category: i.getAttribute('data-label'), type: i.classList.contains('inc-input') ? 'Income' : 'Expense', amount: val, fieldId: i.id });
+      if (val !== 0) {
+        newEntries.push({ 
+          date, 
+          category: i.getAttribute('data-label'), 
+          type: i.classList.contains('inc-input') ? 'Income' : 'Expense', 
+          amount: val, 
+          fieldId: i.id 
+        });
       }
     });
-    localStorage.setItem('hh_data_v5', JSON.stringify(txLogs));
+
+    // 2. CRITICAL CHECK: If all inputs are 0, do nothing and stop the function
+    if (newEntries.length === 0) {
+      alert("No data entered. Previous records for this date were not changed.");
+      return; 
+    }
+
+    // 3. Only if we have new data, remove the old records for this date and add new ones
+    txLogs = txLogs.filter(log => log.date !== date);
+    txLogs.push(...newEntries);
+
+    // 4. Save to memory and refresh UI
+    localStorage.setItem('hh_final_data_v5', JSON.stringify(txLogs));
     currentlyEditingDate = null;
     document.getElementById('edit-indicator').style.display = 'none';
-    document.querySelectorAll('input').forEach(i => { if(i.type === "number") i.value = ''; });
+    document.getElementById('save-btn').innerText = "Saved to Dashboard";
+    document.querySelectorAll('input[type="number"]').forEach(i => i.value = '');
+    
     renderHist();
     runCalc();
   }
