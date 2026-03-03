@@ -77,6 +77,7 @@
         background-color: #222; 
         padding: 15px; 
         border-radius: 5px; 
+        position: relative;
     }
     .balance-section small { 
         color: #ffffffb7; 
@@ -86,11 +87,24 @@
     }
     .balance-section h1 { 
         margin: 5px 0 0 0; 
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
         color: var(--pure-white); 
         font-size: 32px; 
+        display: inline-block;
+    }
+    
+    .toggle-visibility {
+        background: none;
+        border: none;
+        color: var(--primary-blue);
+        cursor: pointer;
+        font-size: 18px;
+        vertical-align: middle;
+        margin-left: 10px;
+        opacity: 0.7;
+        transition: opacity 0.3s;
     }
 
     .stat-grid { 
@@ -102,7 +116,7 @@
     .stat-card { 
         padding: 12px; 
         border-radius: 5px; 
-        white-space: nowrap;
+        white-space: nowrap; 
         overflow: hidden;
         text-overflow: ellipsis;
         text-align: center; 
@@ -138,9 +152,14 @@
         background: #3232327c; 
         padding: 10px 15px; 
         border-radius: 5px; 
+        gap: 8px;
+    }
+    .input-row span {
+        flex: 1;
+        font-size: 14px;
     }
     .input-row input { 
-        width: 120px; 
+        width: 110px; 
         padding: 8px; 
         border-radius: 3px; 
         border: 1px solid #444; 
@@ -151,7 +170,21 @@
         outline: none; 
     }
 
-    /* HISTORY STYLES */
+    .delete-field-btn {
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 0 5px;
+    }
+
+    /* LIBRARY STYLES */
+    .field-library { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; padding: 0 5px; }
+    .library-chip { background: #222; color: #aaa; border: 1px solid #444; padding: 4px 10px; border-radius: 15px; font-size: 10px; cursor: pointer; text-transform: uppercase; }
+    .library-chip:hover { background: var(--primary-blue); color: white; border-color: var(--primary-blue); }
+    .library-label { font-size: 9px; color: #555; text-transform: uppercase; margin-bottom: 5px; padding-left: 5px; display: block; }
+
     .history-header { 
         display: grid; 
         grid-template-columns: 1.2fr 1fr 1fr 1fr 0.4fr; 
@@ -169,10 +202,7 @@
         padding: 5px; 
         font-weight: 500;
     }
-    
-    .day-group { 
-        border-bottom: 1px solid #3c3c3c; 
-    }
+    .day-group { border-bottom: 1px solid #3c3c3c; }
     .history-summary-row { 
         display: grid; 
         grid-template-columns: 1.2fr 1fr 1fr 1fr 0.4fr; 
@@ -182,31 +212,8 @@
         padding: 12px 5px; 
         cursor: pointer; 
     }
-    
-    .day-details { 
-        background: #151515; 
-        padding: 0 10px; 
-        display: none; 
-        overflow: hidden; 
-        border-radius: 8px; 
-        margin: 0 5px 10px; 
-    }
-    .detail-item { 
-        display: flex; 
-        justify-content: space-between; 
-        padding: 6px 0; 
-        font-size: 10px; 
-        border-bottom: 1px solid #222; 
-    }
-    .detail-item:last-child { 
-        border-bottom: none; 
-    }
-    .detail-label { 
-        color: #aaa; 
-    }
-    .detail-amt { 
-        font-weight: 500; 
-    }
+    .day-details { background: #151515; padding: 0 10px; display: none; border-radius: 8px; margin: 0 5px 10px; }
+    .detail-item { display: flex; justify-content: space-between; padding: 6px 0; font-size: 10px; border-bottom: 1px solid #222; }
 
     .full-btn { 
         width: 50%;
@@ -223,76 +230,15 @@
         color: var(--pure-white); 
         text-transform: uppercase; 
     }
-    .footer-btns { 
-        display: grid; 
-        grid-template-columns: 1fr 1fr; 
-        gap: 10px; 
-    }
-    .reset-btn { 
-        background: transparent; 
-        color: #ffffff; 
-        border: 0.1px  solid #ffffff; 
-        padding: 12px; 
-        border-radius: 5px; 
-        cursor: pointer; 
-        font-size: 11px; 
-        font-weight: 500; 
-        text-transform: uppercase; 
-    }
-    .xls-btn { 
-        background: var(--pure-white); 
-        color: var(--deep-black); 
-        padding: 12px; 
-        border-radius: 5px; 
-        cursor: pointer; 
-        font-size: 11px; 
-        font-weight: 500; 
-        text-transform: uppercase; 
-        border: none; 
-    }
-    
-    .action-btn { 
-        background: none; 
-        border: none; color: #ffffff; 
-        cursor: pointer; 
-        font-size: 15px; 
-    }
-    .editing-mode { 
-        background: var(--primary-blue); 
-        color: white; 
-        padding: 10px; 
-        border-radius: 10px; 
-        text-align: center; 
-        margin-bottom: 20px; 
-        font-size: 12px; 
-        font-weight: 500; 
-    }
-    /* Add this at the bottom of your <style> section */
-.custom-adder {
-    display: flex;
-    gap: 8px;
-    margin: 10px 0 20px;
-    padding: 0 5px;
-}
-.custom-adder input {
-    flex: 1;
-    background: #111;
-    border: 1px solid #444;
-    color: white;
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 11px;
-}
-.add-btn {
-    background: var(--primary-blue);
-    color: white;
-    border: none;
-    padding: 0 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
-}
+    .footer-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .reset-btn { background: transparent; color: #ffffff; border: 0.1px solid #ffffff; padding: 12px; border-radius: 5px; cursor: pointer; font-size: 11px; font-weight: 500; text-transform: uppercase; }
+    .xls-btn { background: var(--pure-white); color: var(--deep-black); padding: 12px; border-radius: 5px; cursor: pointer; font-size: 11px; font-weight: 500; text-transform: uppercase; border: none; }
+    .action-btn { background: none; border: none; color: #ffffff; cursor: pointer; font-size: 15px; }
+
+    .custom-adder { display: flex; gap: 8px; margin: 10px 0 20px; padding: 0 5px; }
+    .custom-adder input { flex: 1; background: #111; border: 1px solid #444; color: white; padding: 8px; border-radius: 4px; font-size: 11px; }
+    .add-btn { background: var(--primary-blue); color: white; border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; }
+    .editing-mode { background: var(--primary-blue); color: white; padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 20px; font-size: 12px; font-weight: 500; }
   </style>
   <link rel="icon" href="images/bob.png">
 </head>
@@ -304,106 +250,170 @@
   <div id="edit-indicator" style="display:none;" class="editing-mode">✏️ UPDATING RECORD FOR: <span id="edit-date-label"></span></div>
 
   <div class="hp-container">
-    <div class="hp-label">
-        <span>BUDGET HEALTH</span>
-        <span id="hp-percent">100%</span>
-    </div>
-    <div class="hp-bar-bg">
-        <div id="hp-fill" class="hp-fill"></div>
-    </div>
+    <div class="hp-label"><span>BUDGET HEALTH</span><span id="hp-percent">100%</span></div>
+    <div class="hp-bar-bg"><div id="hp-fill" class="hp-fill"></div></div>
   </div>
 
   <div class="balance-section">
-    <small>Current Balance</small>
-    <h1 id="balance">Ksh 0</h1>
+    <small>Current Total Balance</small><br>
+    <h1 id="balance">Ksh ••••</h1>
+    <button class="toggle-visibility" onclick="toggleBalance()" id="visibility-btn">👁️</button>
   </div>
 
   <div class="stat-grid">
-    <div class="stat-card">
-        <small>INCOME</small>
-        <span id="inc-total" style="color:var(--income-green)">0</span>
-    </div>
-    <div class="stat-card">
-        <small>EXPENSE</small>
-        <span id="exp-total" style="color:var(--expense-red)">0</span>
-    </div>
+    <div class="stat-card"><small>ENTRY INCOME</small><span id="inc-total" style="color:var(--income-green)">0</span></div>
+    <div class="stat-card"><small>ENTRY EXPENSE</small><span id="exp-total" style="color:var(--expense-red)">0</span></div>
   </div>
 
   <div class="section-title">Income Sources</div>
-  <div class="input-row">
-    <span>Income</span> 
-    <input type="number" class="inc-input" data-label="Income" id="f-income" placeholder="0">
-</div>
-  <div class="input-row">
-    <span>Debt (Received)</span> 
-    <input type="number" class="inc-input" data-label="Debt Received" id="f-inc-debt" placeholder="0">
-</div>
-<div id="custom-inc-container"></div> <div class="custom-adder">
-    <input type="text" id="new-inc-name" placeholder="Add custom income (e.g. Gifts)">
+  <div class="input-row"><span>Income</span><input type="number" class="inc-input" data-label="Income" id="f-income" placeholder="0"></div>
+  
+  <div id="custom-inc-container"></div>
+  <div class="custom-adder">
+    <input type="text" id="new-inc-name" placeholder="Add custom income...">
     <button class="add-btn" onclick="addNewField('inc')">+</button>
-</div>
+  </div>
+  <span class="library-label" id="lib-inc-label" style="display:none;">Suggestions</span>
+  <div class="field-library" id="lib-inc-container"></div>
 
   <div class="section-title">Household Expenses</div>
-  <div class="input-row"><span>Rent</span> <input type="number" class="exp-input" data-label="Rent" id="f-rent" placeholder="0"></div>
-  <div class="input-row"><span>Food</span> <input type="number" class="exp-input" data-label="Food" id="f-food" placeholder="0"></div>
-  <div class="input-row"><span>Transport</span> <input type="number" class="exp-input" data-label="Transport" id="f-trans" placeholder="0"></div>
-  <div class="input-row"><span>School Fees</span> <input type="number" class="exp-input" data-label="School Fees" id="f-fees" placeholder="0"></div>
-  <div class="input-row"><span>Debt (Repay)</span> <input type="number" class="exp-input" data-label="Debt Repayment" id="f-exp-debt" placeholder="0"></div>
-  <div class="input-row"><span>Electricity</span> <input type="number" class="exp-input" data-label="Electricity" id="f-elec" placeholder="0"></div>
-  <div class="input-row"><span>Gas</span> <input type="number" class="exp-input" data-label="Gas" id="f-gas" placeholder="0"></div>
-  <div class="input-row"><span>Wifi</span> <input type="number" class="exp-input" data-label="Wifi" id="f-wifi" placeholder="0"></div>
-  <div id="custom-exp-container"></div> <div class="custom-adder">
-    <input type="text" id="new-exp-name" placeholder="Add custom expense (e.g. Tithe)">
+  <div class="input-row"><span>Food</span><input type="number" class="exp-input" data-label="Food" id="f-food" placeholder="0"></div>
+  <div class="input-row"><span>Electricity</span><input type="number" class="exp-input" data-label="Electricity" id="f-elec" placeholder="0"></div>
+  
+  <div id="custom-exp-container"></div>
+  <div class="custom-adder">
+    <input type="text" id="new-exp-name" placeholder="Add custom expense...">
     <button class="add-btn" onclick="addNewField('exp')">+</button>
-</div>
+  </div>
+  <span class="library-label" id="lib-exp-label" style="display:none;">Suggestions</span>
+  <div class="field-library" id="lib-exp-container"></div>
 
-  <button class="full-btn" id="save-btn" onclick="saveToHistory()">SAVE</button>
+  <button class="full-btn" id="save-btn" onclick="saveToHistory()">SAVE RECORD</button>
 
   <div class="section-title">History Ramp</div>
-  <div class="history-header">
-    <span>Date</span>
-    <span>In</span>
-    <span>Out</span>
-    <span>Bal</span>
-    <span></span>
-</div>
+  <div class="history-header"><span>Date</span><span>In</span><span>Out</span><span>Bal</span><span></span></div>
   <div class="history-list" id="history-log"></div>
 
   <div style="margin-top: 30px;" class="footer-btns">
       <button onclick="hardReset()" class="reset-btn">Reset Data</button>
       <button onclick="exportToExcel()" class="xls-btn">Export Data</button>
-    </div>
-    <p style="text-align: center; align-content:baseline; margin-bottom:-10px; display:flex; justify-content:center">&copy;morgsmbugua</p>
+  </div>
+  <p style="text-align: center; margin-bottom:-10px; display:flex; justify-content:center">&copy;morgsmbugua</p>
 </div>
 
 <script>
-  let customFields = JSON.parse(localStorage.getItem('hh_custom_fields_v5')) || { inc: [], exp: [] };
-  let txLogs = JSON.parse(localStorage.getItem('hh_final_data_v5')) || [];
+  // Initial pre-loaded library items
+  const starterLibrary = {
+      inc: ['Gifts', 'Bonus', 'Side Hustle', 'Debt (Received)'],
+      exp: ['Rent', 'Transport', 'School Fees', 'Debt (Repayment)', 'Gas', 'Wifi', 'Water']
+  };
+
+  let activeFields = JSON.parse(localStorage.getItem('hh_active_v8')) || { inc: [], exp: [] };
+  let fieldLibrary = JSON.parse(localStorage.getItem('hh_lib_v8')) || starterLibrary;
+  let txLogs = JSON.parse(localStorage.getItem('hh_data_v8')) || [];
   let currentlyEditingDate = null;
+  let isBalanceHidden = true;
 
   function init() {
-    // Load existing custom fields from memory
-    customFields.inc.forEach(name => createInputMarkup('inc', name));
-    customFields.exp.forEach(name => createInputMarkup('exp', name));
-    
+    activeFields.inc.forEach(name => createInputMarkup('inc', name));
+    activeFields.exp.forEach(name => createInputMarkup('exp', name));
+    renderLibrary();
     document.querySelectorAll('input').forEach(i => i.addEventListener('input', runCalc));
     renderHist();
     runCalc();
-}
+  }
+
+  function toggleBalance() {
+    isBalanceHidden = !isBalanceHidden;
+    document.getElementById('visibility-btn').innerText = isBalanceHidden ? '👁️' : '🙈';
+    runCalc();
+  }
 
   function runCalc() {
-    let inc = 0, exp = 0;
-    document.querySelectorAll('.inc-input').forEach(i => inc += parseFloat(i.value)||0);
-    document.querySelectorAll('.exp-input').forEach(i => exp += parseFloat(i.value)||0);
-    const bal = inc - exp;
-    document.getElementById('inc-total').innerText = inc.toLocaleString();
-    document.getElementById('exp-total').innerText = exp.toLocaleString();
-    document.getElementById('balance').innerText = `Ksh ${bal.toLocaleString()}`;
-    let hp = inc > 0 ? (bal / inc) * 100 : (exp > 0 ? 0 : 100);
+    let inputInc = 0, inputExp = 0;
+    document.querySelectorAll('.inc-input').forEach(i => inputInc += parseFloat(i.value)||0);
+    document.querySelectorAll('.exp-input').forEach(i => inputExp += parseFloat(i.value)||0);
+
+    let histInc = 0, histExp = 0;
+    txLogs.forEach(log => {
+      if (log.date !== currentlyEditingDate) {
+        log.type === 'Income' ? histInc += log.amount : histExp += log.amount;
+      }
+    });
+
+    const totalBal = (histInc + inputInc) - (histExp + inputExp);
+    document.getElementById('inc-total').innerText = inputInc.toLocaleString();
+    document.getElementById('exp-total').innerText = inputExp.toLocaleString();
+    document.getElementById('balance').innerText = isBalanceHidden ? "Ksh ••••" : `Ksh ${totalBal.toLocaleString()}`;
+    
+    let hp = (histInc + inputInc) > 0 ? (totalBal / (histInc + inputInc)) * 100 : 100;
     const fill = document.getElementById('hp-fill');
     fill.style.width = Math.max(0, Math.min(100, hp)) + "%";
     fill.style.background = hp > 50 ? "var(--income-green)" : (hp > 20 ? "#f1c40f" : "var(--expense-red)");
     document.getElementById('hp-percent').innerText = Math.round(hp) + "%";
+  }
+
+  function addNewField(type) {
+    const inputId = type === 'inc' ? 'new-inc-name' : 'new-exp-name';
+    const name = document.getElementById(inputId).value.trim();
+    if (!name) return;
+    activateField(type, name);
+    document.getElementById(inputId).value = '';
+  }
+
+  function activateField(type, name) {
+    if (!activeFields[type].includes(name)) {
+        activeFields[type].push(name);
+        fieldLibrary[type] = fieldLibrary[type].filter(n => n !== name);
+        saveSettings();
+        createInputMarkup(type, name);
+        renderLibrary();
+        document.querySelectorAll('input').forEach(i => i.addEventListener('input', runCalc));
+    }
+  }
+
+  function removeField(type, name) {
+    activeFields[type] = activeFields[type].filter(n => n !== name);
+    if (!fieldLibrary[type].includes(name)) fieldLibrary[type].push(name);
+    saveSettings();
+    document.getElementById('row-' + type + '-' + name.replace(/\s+/g, '-').toLowerCase()).remove();
+    renderLibrary();
+    runCalc();
+  }
+
+  function createInputMarkup(type, name) {
+    const container = document.getElementById(type === 'inc' ? 'custom-inc-container' : 'custom-exp-container');
+    const div = document.createElement('div');
+    const safeId = name.replace(/\s+/g, '-').toLowerCase();
+    div.className = 'input-row';
+    div.id = 'row-' + type + '-' + safeId;
+    div.innerHTML = `
+        <button class="delete-field-btn" onclick="removeField('${type}', '${name}')">🗑️</button>
+        <span>${name}</span> 
+        <input type="number" class="${type}-input" data-label="${name}" id="f-c-${type}-${safeId}" placeholder="0">
+    `;
+    container.appendChild(div);
+  }
+
+  function renderLibrary() {
+    ['inc', 'exp'].forEach(type => {
+        const container = document.getElementById(`lib-${type}-container`);
+        const label = document.getElementById(`lib-${type}-label`);
+        container.innerHTML = '';
+        fieldLibrary[type].forEach(name => {
+            const chip = document.createElement('div');
+            chip.className = 'library-chip';
+            chip.innerText = name + ' +';
+            chip.onclick = () => activateField(type, name);
+            container.appendChild(chip);
+        });
+        label.style.display = fieldLibrary[type].length > 0 ? 'block' : 'none';
+    });
+  }
+
+  function saveSettings() {
+    localStorage.setItem('hh_active_v8', JSON.stringify(activeFields));
+    localStorage.setItem('hh_lib_v8', JSON.stringify(fieldLibrary));
   }
 
   function saveToHistory() {
@@ -411,122 +421,70 @@
     txLogs = txLogs.filter(log => log.date !== date);
     document.querySelectorAll('input').forEach(i => {
       const val = parseFloat(i.value) || 0;
-      if (val !== 0) {
+      if (val !== 0 && i.type === "number") {
         txLogs.push({ date, category: i.getAttribute('data-label'), type: i.classList.contains('inc-input') ? 'Income' : 'Expense', amount: val, fieldId: i.id });
       }
     });
-    localStorage.setItem('hh_final_data_v5', JSON.stringify(txLogs));
+    localStorage.setItem('hh_data_v8', JSON.stringify(txLogs));
     currentlyEditingDate = null;
     document.getElementById('edit-indicator').style.display = 'none';
-    document.getElementById('save-btn').innerText = "Saved to Dashboard";
-    document.querySelectorAll('input').forEach(i => i.value = '');
+    document.querySelectorAll('input').forEach(i => { if(i.type === "number") i.value = ''; });
     renderHist();
-    runCalc();
-  }
-
-  function toggleDetails(date) {
-    const el = document.getElementById(`details-${date.replace(/\//g, '-')}`);
-    el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-  }
-
-  function editDay(e, date) {
-    e.stopPropagation(); // Prevents toggleDetails from firing
-    const dailyLogs = txLogs.filter(log => log.date === date);
-    currentlyEditingDate = date;
-    document.getElementById('edit-date-label').innerText = date;
-    document.getElementById('edit-indicator').style.display = 'block';
-    document.getElementById('save-btn').innerText = "Update Saved Record";
-    document.querySelectorAll('input').forEach(i => i.value = ''); 
-    dailyLogs.forEach(log => {
-      const el = document.getElementById(log.fieldId);
-      if (el) el.value = log.amount;
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     runCalc();
   }
 
   function renderHist() {
     const logContainer = document.getElementById('history-log');
     logContainer.innerHTML = txLogs.length ? '' : '<div style="text-align:center; padding:15px; color:#555;">No records</div>';
-    
     const grouped = txLogs.reduce((acc, log) => {
       if (!acc[log.date]) acc[log.date] = { inc: 0, exp: 0, items: [] };
-      if (log.type === 'Income') acc[log.date].inc += log.amount;
-      else acc[log.date].exp += log.amount;
+      log.type === 'Income' ? acc[log.date].inc += log.amount : acc[log.date].exp += log.amount;
       acc[log.date].items.push(log);
       return acc;
     }, {});
-
     Object.keys(grouped).sort((a,b) => b.split('/').reverse().join('').localeCompare(a.split('/').reverse().join(''))).forEach(date => {
       const h = grouped[date];
-      const dateId = date.replace(/\//g, '-');
-      
-      let detailHtml = h.items.map(item => `
-        <div class="detail-item">
-          <span class="detail-label">${item.category}</span>
-          <span class="detail-amt" style="color:${item.type==='Income'?'var(--income-green)':'var(--expense-red)'}">${item.amount.toLocaleString()}</span>
-        </div>
-      `).join('');
-
       logContainer.innerHTML += `
         <div class="day-group">
-          <div class="history-summary-row" onclick="toggleDetails('${date}')">
+          <div class="history-summary-row" onclick="const e = document.getElementById('det-${date.replace(/\//g,'-')}'); e.style.display = e.style.display==='block'?'none':'block'">
             <span style="color:#888">${date}</span>
             <span style="color:var(--income-green)">${h.inc.toLocaleString()}</span>
             <span style="color:var(--expense-red)">${h.exp.toLocaleString()}</span>
-            <span style="font-weight:500">${(h.inc - h.exp).toLocaleString()}</span>
-            <button class="action-btn" onclick="editDay(event, '${date}')">✎</button>
+            <span>${(h.inc - h.exp).toLocaleString()}</span>
+            <button class="action-btn" onclick="event.stopPropagation(); editDay('${date}')">✎</button>
           </div>
-          <div class="day-details" id="details-${dateId}">
-            <div style="font-size:10px; color:#555; margin:10px; text-align:center; text-transform:uppercase;">Daily Breakdown</div>
-            ${detailHtml}
+          <div class="day-details" id="det-${date.replace(/\//g,'-')}">
+            ${h.items.map(item => `<div class="detail-item"><span>${item.category}</span><span style="color:${item.type==='Income'?'var(--income-green)':'var(--expense-red)'}">${item.amount.toLocaleString()}</span></div>`).join('')}
           </div>
         </div>`;
     });
   }
 
+  function editDay(date) {
+    currentlyEditingDate = date;
+    const dailyLogs = txLogs.filter(log => log.date === date);
+    document.getElementById('edit-date-label').innerText = date;
+    document.getElementById('edit-indicator').style.display = 'block';
+    document.querySelectorAll('input').forEach(i => { if(i.type === "number") i.value = ''; });
+    dailyLogs.forEach(log => {
+        let el = document.getElementById(log.fieldId);
+        if(!el) { activateField(log.type === 'Income' ? 'inc' : 'exp', log.category); el = document.getElementById(log.fieldId); }
+        if (el) el.value = log.amount;
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    runCalc();
+  }
+
   function exportToExcel() {
-    let csvContent = "Date,Item Category,Type,Amount (Ksh)\n";
-    txLogs.forEach(log => { csvContent += `${log.date},"${log.category}",${log.type},${log.amount}\n`; });
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
+    let csv = "Date,Category,Type,Amount\n" + txLogs.map(l => `${l.date},"${l.category}",${l.type},${l.amount}`).join('\n');
     const link = document.createElement('a');
-    link.href = url;
-    link.download = 'Detailed_Household_Report.csv';
+    link.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    link.download = 'Finance_Report.csv';
     link.click();
   }
 
-  function hardReset() { if(confirm("Permanently Erase All Data?")) { localStorage.clear(); location.reload(); } }
+  function hardReset() { if(confirm("Erase All Data?")) { localStorage.clear(); location.reload(); } }
   init();
-
-  function addNewField(type) {
-    const inputId = type === 'inc' ? 'new-inc-name' : 'new-exp-name';
-    const name = document.getElementById(inputId).value.trim();
-    if (!name) return;
-
-    if (!customFields[type].includes(name)) {
-        customFields[type].push(name);
-        localStorage.setItem('hh_custom_fields_v5', JSON.stringify(customFields));
-        createInputMarkup(type, name);
-        // Attach listener to the new input so the math updates live
-        document.querySelectorAll('input').forEach(i => i.addEventListener('input', runCalc));
-    }
-    document.getElementById(inputId).value = '';
-}
-
-function createInputMarkup(type, name) {
-    const containerId = type === 'inc' ? 'custom-inc-container' : 'custom-exp-container';
-    const container = document.getElementById(containerId);
-    const div = document.createElement('div');
-    div.className = 'input-row';
-    // Create a unique ID so the 'Edit' feature works correctly
-    const safeId = 'f-custom-' + name.replace(/\s+/g, '-').toLowerCase();
-    div.innerHTML = `
-        <span>${name}</span> 
-        <input type="number" class="${type}-input" data-label="${name}" id="${safeId}" placeholder="0">
-    `;
-    container.appendChild(div);
-}
 </script>
 </body>
 </html>
