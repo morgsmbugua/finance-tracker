@@ -412,8 +412,8 @@
   }
 
   function saveSettings() {
-    localStorage.setItem('hh_active_v8', JSON.stringify(activeFields));
-    localStorage.setItem('hh_lib_v8', JSON.stringify(fieldLibrary));
+    localStorage.setItem('hh_active_v5', JSON.stringify(activeFields));
+    localStorage.setItem('hh_lib_v5', JSON.stringify(fieldLibrary));
   }
 
   function saveToHistory() {
@@ -425,7 +425,7 @@
         txLogs.push({ date, category: i.getAttribute('data-label'), type: i.classList.contains('inc-input') ? 'Income' : 'Expense', amount: val, fieldId: i.id });
       }
     });
-    localStorage.setItem('hh_data_v8', JSON.stringify(txLogs));
+    localStorage.setItem('hh_data_v5', JSON.stringify(txLogs));
     currentlyEditingDate = null;
     document.getElementById('edit-indicator').style.display = 'none';
     document.querySelectorAll('input').forEach(i => { if(i.type === "number") i.value = ''; });
