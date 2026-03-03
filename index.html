@@ -487,6 +487,7 @@
     const dailyLogs = txLogs.filter(log => log.date === date);
     document.getElementById('edit-date-label').innerText = date;
     document.getElementById('edit-indicator').style.display = 'block';
+    document.getElementById('save-btn').innerText = "Update";
     document.querySelectorAll('input').forEach(i => { if(i.type === "number") i.value = ''; });
     dailyLogs.forEach(log => {
         let el = document.getElementById(log.fieldId);
